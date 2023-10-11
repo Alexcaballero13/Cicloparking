@@ -36,7 +36,15 @@ module.exports = (sequelize) => {
         EstadoCiclo: {
             type: DataTypes.STRING,
             allowNull: false,
-        }
+        },
+        lat: {
+            type: DataTypes.DOUBLE,
+            allowNull: true,
+        },
+        lon: {
+            type: DataTypes.DOUBLE,
+            allowNull: true,
+        },
     },
         {
             timestamps: false,
