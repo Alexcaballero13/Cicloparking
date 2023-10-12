@@ -36,9 +36,9 @@
             .modal-content {
                 background-color: #00A499;
                 width: 60%;
-                max-width: 400px;
+                max-width: 600px;
                 margin: 0 auto;
-                margin-top: 100px;
+                margin-top: 50px;
                 padding: 20px;
                 border-radius: 5px;
                 box-shadow: 0 2px 8px rgba(0,0,0,0.2);
@@ -94,17 +94,18 @@
                 </div>
             </div>
             <div id="modal" class="modal">
-                <div class="modal-content">
+                <div class="modal-content" style="width: 90%;">
                     <span class="close" id="cerrar">x</span>
-                    <p>ID: <span id="modal-id"></span></p>
-                    <p>Localización: <span id="modal-localizacion"></span></p>
-                    <p>Dirección: <span id="modal-direccion"></span></p>
-                    <p>Cupos: <span id="modal-cupos"></span></p>
-                    <p>Kit: <span id="modal-kit"></span></p>
-                    <p>Señalización: <span id="modal-senalizacion"></span></p>
-                    <p>Lampara: <span id="modal-lampara"></span></p>
-                    <p>Estado Ciclo: <span id="modal-estado"></span></p>
-                    <p>Coordenadas: <span id="modal-coordenadas"></span></p>
+                    <p style="color: black;">ID: <span id="modal-id" style="color: white;"></span></p>
+                    <p style="color: black;">Localización: <span id="modal-localizacion" style="color: white;"></span></p>
+                    <p style="color: black;">Dirección: <span id="modal-direccion" style="color: white;"></span></p>
+                    <p style="color: black;">Cupos: <span id="modal-cupos" style="color: white;"></span></p>
+                    <p style="color: black;">Kit: <span id="modal-kit" style="color: white;"></span></p>
+                    <p style="color: black;">Señalización: <span id="modal-senalizacion" style="color: white;"></span></p>
+                    <p style="color: black;">Lampara: <span id="modal-lampara" style="color: white;"></span></p>
+                    <p style="color: black;">Estado Ciclo: <span id="modal-estado" style="color: white;"></span></p>
+                    <p style="color: black;">Coordenadas: <span id="modal-coordenadas" style="color: white;"></span></p>
+                    <div id="google-map3" style="border: 0; width: 100%; height: 400px;"></div>
                 </div>
             </div>
         </section>
@@ -134,8 +135,8 @@
         <script src="src/vendor/isotope-layout/isotope.pkgd.min.js"></script>
         <script src="src/vendor/swiper/swiper-bundle.min.js"></script>
         <script src="src/vendor/php-email-form/validate.js"></script>
-        <script src="src/js/main.js"></script>
         <script src="src/js/api.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0E8xMKzvXrCY0_OyX1ODMEkIs8fSXy6Q&callback=initMap" async defer></script>
 
     </body>
 </html>

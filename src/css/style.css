@@ -603,3 +603,33 @@ body {
     font-size: 13px;
     color: #fff;
   }
+
+  .modal_I {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    z-index: 1000;
+}
+
+.modal-content_I {
+    background-color: #00A499;
+    width: 60%;
+    max-width: 600px;
+    margin: 0 auto;
+    margin-top: 80px;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.close_I {
+    color: #555;
+    float: right;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: right;
+}

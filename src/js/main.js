@@ -156,3 +156,120 @@
   new PureCounter();
 
 })()
+
+function initMap() {
+  // Coordenadas de Cali, Colombia
+  var cali = { lat: 3.3943834, lng: -76.5291634 };
+
+  // Crea un mapa y lo muestra en el div con el identificador "google-map"
+  var map = new google.maps.Map(document.getElementById("google-map"), {
+    center: cali,
+    zoom: 12 
+  });
+
+  // Realiza una solicitud a la API
+  fetch("http://localhost:3002/info/infoCicloParking")
+  .then(function (response) {
+    return response.json();
+  })
+  .then(function (data) {
+    var infowindow = new google.maps.InfoWindow();
+    // Itera a través de los datos y agrega marcadores en el mapa
+    data.forEach(function (info) {
+      var marker = new google.maps.Marker({
+        position: { lat: info.lat, lng: info.lon },
+        map: map,
+        title: "Ubicación del Ciclo Parqueadero"
+      });
+      // Agrega un evento para mostrar el infowindow cuando se pasa el mouse sobre el marcador
+      marker.addListener("mouseover", function () {
+        infowindow.setContent('<div style="color: black;"> Localización: ' + info.Localizacion + '<br> Dirección: ' + info.Direccion + '<br> Id: ' + info.Id +'</div>'); // Ajusta esto para mostrar la información deseada
+        infowindow.open(map, marker);
+      });
+
+      // Agrega un evento para cerrar el infowindow cuando se retira el mouse del marcador
+      marker.addListener("mouseout", function () {
+        infowindow.close();
+      });
+    });
+  })
+  .catch(function (error) {
+    console.error("Error al cargar los datos de la API: " + error);
+  });
+}
+if (typeof google === 'object' && typeof google.maps === 'object') {
+  // La API de Google Maps ya se ha cargado, por lo que podemos llamar a initMap directamente
+  initMap();
+}
+
+function obtenerDatosDeAPI() {
+  // Obtén la URL actual
+  var url = window.location.href;
+
+  // Encuentra la última parte de la URL (suponiendo que sea el valor "X")
+  // Busca el valor "X" en los parámetros de consulta
+  var params = new URLSearchParams(new URL(url).search);
+  var X = params.get("id");
+
+  // Puedes usar el valor "X" para llamar a tu API
+  var apiUrl = "http://localhost:3002/info/infoCicloParking/" + X;
+
+  function cargarMapa(datos) {
+    // Llamada a la API de Google Maps para cargar el mapa
+    var coordenadas = { lat: datos.lat, lng: datos.lon };
+    var mapa = new google.maps.Map(document.getElementById("google-map2"), {
+      center: coordenadas,
+      zoom: 18
+    });
+    var marcador = new google.maps.Marker({
+      position: coordenadas,
+      map: mapa,
+      title: "Ubicación del Ciclo Parqueadero"
+    });
+  }
+
+  if (typeof google === 'object' && typeof google.maps === 'object') {
+    // La API de Google Maps ya se ha cargado, puedes llamar a cargarMapa directamente
+    fetch(apiUrl)
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (datos) {
+        document.getElementById("modal-id").textContent = datos.Id;
+        document.getElementById("modal-localizacion").textContent = datos.Localizacion;
+        document.getElementById("modal-direccion").textContent = datos.Direccion;
+        document.getElementById("modal-cupos").textContent = datos.Cupo;
+        document.getElementById("modal-kit").textContent = datos.Kit;
+        document.getElementById("modal-senalizacion").textContent = datos.Senalizacion;
+        document.getElementById("modal-lampara").textContent = datos.Lampara;
+        document.getElementById("modal-estado").textContent = datos.EstadoCiclo;
+        document.getElementById("modal-coordenadas").textContent = datos.lat + " " + datos.lon;
+
+        cargarMapa(datos);
+      })
+      .catch(function (error) {
+        console.error("Error al llamar a la API: " + error);
+      });
+  } else {
+    // La API de Google Maps aún no se ha cargado, puedes intentar esperar un poco y luego reintentar
+    setTimeout(obtenerDatosDeAPI, 1000); // Espera 1 segundo y vuelve a intentar
+  }
+}
+
+var modal = document.getElementById("modal");
+// Función para cerrar la ventana modal
+cerrar.addEventListener("click", function() {
+  modal.style.display = "none";
+});
+
+// Cierra la ventana modal si se hace clic fuera de ella
+window.addEventListener("click", function(event) {
+  if (event.target == modal) {
+      modal.style.display = "none";
+  }
+});
+
+
+
+
+obtenerDatosDeAPI();

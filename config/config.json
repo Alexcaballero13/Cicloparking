@@ -1,8 +1,8 @@
 {
   "development": {
     "username": "postgres",
-    "password": "Xbox3701",
-    "database": "ciclopark",
+    "password": "5384",
+    "database": "cicloparqueadero",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
